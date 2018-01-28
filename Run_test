@@ -1,0 +1,77 @@
+#!/bin/bash
+
+for i in {255..233} {234..256} ; do printf "\e[48;5;${i}m  \e[0m" ; done 
+printf "\n\e[1m
+This folder contains several Gnuplot Scripts.
+	\e[94m 1 - pTRACE_E.gp\e[90m       ----> To plot Transport proporties as a function of energy at define Temperature
+	\e[94m 2 - pTRACE_E_multT.gp\e[90m ----> To plot Transport proporties as a function of energy at different define Temperatures
+	\e[94m 3 - pTRACE_N.gp\e[90m       ----> To plot Transport proporties as a function of Carrier Concentration at define Temperature
+	\e[94m 4 - pDOPING_T.gp\e[90m      ----> To plot Transport proporties as a function of Temperature at define [n]
+\e[39;5m Gnuplot Version > 5.0 is required \e[0m 
+The Scripts are used to plot BoltzTraP Data Output (i.e *trace files and doping)
+In this Folder you can find two exemple files \e[1;4m File.trace & Doping.data \e[0m
+"
+for i in {1..80}; do printf "-"; done;printf "\n" 
+
+read -p "Choice a Number " Plt
+if [ $Plt == 1 ]; then
+	printf "\nAn exemple will show you how to use \e[1;3m pTRACE_E.gp \e[0m\n"
+	printf "	Using \e[1;4;31m pTRACE_E.gp \e[0m
+		With command line: \" \e[3m gnuplot -c pTRACE_E.gp 300 0.4 0.1 File.trace \e[0m\"\e[90m
+				Input File              : File.trace
+				Fermi Level             : 0.4 Ry
+				dE (around Fermi Level) : 0.1 Ry
+				Temperature             : 300 K
+\e[0m"
+	printf "Gnuplot in Progress...\n"
+	gnuplot -c pTRACE_E.gp 300 0.4 0.1 File.trace
+
+elif [ $Plt == 2 ]; then
+	printf "\nAn exemple will show you how to use \e[1;3m pTRACE_E_multT.gp \e[0m\n"
+	printf "	Using \e[1;4;31m pTRACE_E_multT.gp \e[0m
+		With command line: \" \e[3m gnuplot -c pTRACE_E_multT.gp File.trace 0.4 0.1 300 600 100 \e[0m\"\e[90m
+				Input File              : File.trace
+				Fermi Level             : 0.4 Ry
+				dE (around Fermi Level) : 0.1 Ry
+				Minimum of Temperature  : 300 K
+				Maximum of Temperature  : 600 K
+				Temperature step	: 100 K
+\e[0m"
+	printf "Gnuplot in Progress...\n"
+	gnuplot -c pTRACE_E_multT.gp File.trace 0.4 0.1 300 600 100
+
+elif [ $Plt == 3 ]; then
+	printf "\nAn exemple will show you how to use \e[1;3m pTRACE_N.gp \e[0m\n"
+	printf "	Using \e[1;4;31m pTRACE_N.gp \e[0m
+		With command line: \" \e[3m gnuplot -c pTRACE_N.gp 400 6.458e-23 1e18 1e21 File.trace N \e[0m\"\e[90m
+				Temperature                       : 400 K
+				System Volume                     : 6.458e-23 cm^3
+				Minimum of Carrier Concentration  : 1e18 e/cm^3
+				Maximum of Carrier Concentration  : 1e21 e/cm^3
+				Input File                        : File.trace
+				Doping Type                       : [ N = n-type ] or [ P = p-type ]
+\e[0m"
+	printf "Gnuplot in Progress...\n"
+	gnuplot -c pTRACE_N.gp 400 6.458e-23 1e18 1e21 File.trace N
+	gnuplot -c pTRACE_N.gp 400 6.458e-23 1e18 1e21 File.trace P
+
+elif [ $Plt == 4 ]; then
+	printf "\nAn exemple will show you how to use \e[1;3m pDOPING_T.gp \e[0m\n"
+	printf "	Using \e[1;4;31m pDOPING_T.gp \e[0m
+		With command line: \" \e[3m gnuplot -c pDOPING_T.gp 0.00006458 6.458e-23 200 950 Doping.data \e[0m\"\e[90m
+				Input File              : Doping.data
+				Doping Concentration    : 0.00006458 /uc = 1e18 /cm^3
+				System Volume           : 6.458e-23 cm^3
+				Minimum of Temperature  : 200 K
+				Maximum of Temperature  : 950 K
+\e[0m"
+	printf "Gnuplot in Progress...\n"
+	gnuplot -c pDOPING_T.gp  0.00006458 6.458e-23 200 950 Doping.data
+	gnuplot -c pDOPING_T.gp -0.00774969 6.458e-23 200 950 Doping.data
+else 
+printf "\n \e[31;1mYou must choice a number from the list above \n ...Exit \e[0m \n"
+fi
+
+for i in {255..233} {234..256} ; do printf "\e[48;5;${i}m  \e[0m" ; done;printf "\n" 
+
+printf "\n\e[1m For more informations or any questions mail : \e[3m hilal_balout@hotmail.com \e[0m \n "
