@@ -21,7 +21,7 @@
 
 if  (ARGC != 4){print "\n       Arguments Error... ";
 print "========================================================================================"
-print "  Usage: gnuplot -c pTRACE_E.gp Efermi dE file                                   " 
+print "  Usage: gnuplot -c pTRACE_E.gp Temp Efermi dE file                                   " 
 print "                          |      |      |    |  |____BoltzTraP TRACE File name {.trace}" 
 print "                          |      |      |    |_______plot interva (with Ef set to 0)   "
 print "                          |      |      |____________Fermi Energy (in Ry)              "
