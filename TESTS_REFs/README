@@ -1,1 +1,8 @@
-Here you Find the results of Run_test
+Here you Find the results of Run_test.
+
+common errors:
+                      plot sprintf("<awk '$2==%d' %s",int(ARG1),file2plot) u ($1-ARG2):($5*Echel_Sebk) w l ls 1 
+                                                                                        ^
+                      "pTRACE_E.gp", line 80: all points y value undefined!
+               You get this error where informations necessary for the plot are missing after AWK execution:
+               To resolve this problem you must install or update the AWK GNU command.
