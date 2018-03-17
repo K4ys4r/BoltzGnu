@@ -52,6 +52,7 @@ volume=ARG2 # en cm^3
 ############################################################################################################
 print "\n=================================================" 
 file2plot=ARG5
+Temp=ARG1+0.0
 print "File name               : ", file2plot
 print "Temperature             : ", ARG1
 print "Volume of the System    : ", ARG2
@@ -87,12 +88,12 @@ set ylabel "Seebeck  ( {/Symbol m}V . K^{-1} ) "
 
 if(ARG6 eq "N") {print "Plot Seebeck for ",ARG6,"-Type at ",ARG1," K ...";
 set xlabel "Doping [ e . cm^{-3} ]" 
-plot sprintf("<awk '$2==%d && $3<0' %s",int(ARG1),file2plot) u (-$3/volume):($5*Echel_Sebk) w l ls 1 
+plot sprintf("<awk '$2==%f && $3<0' %s",Temp,file2plot) u (-$3/volume):($5*Echel_Sebk) w l ls 1 
 print "           ...Done\n"
 } 
 if (ARG6 eq "P") {print "Plot Seebeck for ",ARG6,"-Type at ",ARG1," K ...";
 set xlabel "Doping [ h . cm^{-3} ]" 
-plot sprintf("<awk '$2==%d && $3>0' %s",int(ARG1),file2plot) u ($3/volume):($5*Echel_Sebk) w l ls 1 
+plot sprintf("<awk '$2==%f && $3>0' %s",Temp,file2plot) u ($3/volume):($5*Echel_Sebk) w l ls 1 
 print "           ...Done\n"
 }
 
@@ -104,11 +105,11 @@ set xtics offset 0,0.5 font ",4" textcolor rgb "grey"
 set ylabel sprintf("{/Symbol s/t } ( 10^{%.0f} / {/Symbol W} .cm.s )",log10(Echel_Sigma)) 
 
 if(ARG6 eq "N") {print "Plot Electrical Conductivity for ",ARG6,"-Type at ",ARG1," K ...";
-plot sprintf("<awk '$2==%d && $3<0' %s",int(ARG1),file2plot) u (-$3/volume):($6/Echel_Sigma) w l ls 1 
+plot sprintf("<awk '$2==%f && $3<0' %s",Temp,file2plot) u (-$3/volume):($6/Echel_Sigma) w l ls 1 
 print "           ...Done\n"
 } 
 if (ARG6 eq "P") {print "Plot Electrical Conductivity for ",ARG6,"-Type at ",ARG1," K ...";
-plot sprintf("<awk '$2==%d && $3>0' %s",int(ARG1),file2plot) u ($3/volume):($6/Echel_Sigma) w l ls 1 
+plot sprintf("<awk '$2==%f && $3>0' %s",Temp,file2plot) u ($3/volume):($6/Echel_Sigma) w l ls 1 
 print "           ...Done\n"
 }
 
@@ -117,11 +118,11 @@ set origin 0,0.6+dyy
 set ylabel sprintf("PF/{/Symbol t} ( 10^{%.0f} W/m.K^{2}.s )",log10(Echel_PF))
 
 if(ARG6 eq "N") {print "Plot Power Factor for ",ARG6,"-Type at ",ARG1," K ...";
-plot sprintf("<awk '$2==%d && $3<0' %s",int(ARG1),file2plot) u (-$3/volume):(($5*$5*$6)/Echel_PF) w l ls 1 
+plot sprintf("<awk '$2==%f && $3<0' %s",Temp,file2plot) u (-$3/volume):(($5*$5*$6)/Echel_PF) w l ls 1 
 print "           ...Done\n"
 } 
 if (ARG6 eq "P") {print "Plot Power Factor for ",ARG6,"-Type at ",ARG1," K ...";
-plot sprintf("<awk '$2==%d && $3>0' %s",int(ARG1),file2plot) u ($3/volume):(($5*$5*$6)/Echel_PF) w l ls 1 
+plot sprintf("<awk '$2==%f && $3>0' %s",Temp,file2plot) u ($3/volume):(($5*$5*$6)/Echel_PF) w l ls 1 
 print "           ...Done\n"
 }
 
