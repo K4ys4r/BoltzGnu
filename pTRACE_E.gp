@@ -21,7 +21,7 @@
 
 if  (ARGC != 4){print "\n       Arguments Error... ";
 print "========================================================================================"
-print "  Usage: gnuplot -c pTRACE_E.gp Temp Efermi dE file                                   " 
+print "  Usage: gnuplot -c pTRACE_E.gp Efermi dE file                                   " 
 print "                          |      |      |    |  |____BoltzTraP TRACE File name {.trace}" 
 print "                          |      |      |    |_______plot interva (with Ef set to 0)   "
 print "                          |      |      |____________Fermi Energy (in Ry)              "
@@ -43,9 +43,10 @@ Echel_PF=1e11
 ############################################################################################################
 ############################################################################################################
 file2plot=ARG4
+Temp=ARG1+0.0
 print "\n================================================="
 print "File name          : ", file2plot
-print "Temperature        : ", ARG1
+print "Temperature        : ", Temp
 print "Fermi Energy       : ", ARG2
 print "Plot Interval      :  [", -ARG3," : ",ARG3,"]"
 print "-------------------------------------------------\n"
@@ -77,7 +78,7 @@ set origin 0.,dyy
 set xlabel "{/Symbol e - e}_{Fermi} ( Ry )" 
 set ylabel "Seebeck  ( {/Symbol m}V . K^{-1} ) " 
 print "Plot Seebeck at ",ARG1," K ..."
-plot sprintf("<awk '$2==%d' %s",int(ARG1),file2plot) u ($1-ARG2):($5*Echel_Sebk) w l ls 1 
+plot sprintf("<awk '$2==%f' %s",Temp,file2plot) u ($1-ARG2):($5*Echel_Sebk) w l ls 1 
 print "          ...Done\n" 
 
 
@@ -87,13 +88,13 @@ unset label
 set xtics offset 0,0.5 font ",4" textcolor rgb "grey"
 print "Plot Electrical Conductivity at ",ARG1," K ..."
 set ylabel sprintf("{/Symbol s/t } ( 10^{%.0f} / {/Symbol W} .cm.s )",log10(Echel_Sigma)) 
-plot  sprintf("<awk '$2==%d'  %s",int(ARG1),file2plot) u ($1-ARG2):($6/Echel_Sigma) w l ls 1 
+plot  sprintf("<awk '$2==%f'  %s",Temp,file2plot) u ($1-ARG2):($6/Echel_Sigma) w l ls 1 
 print "          ...Done\n" 
 
 
 set origin 0,0.6+dyy
 set ylabel sprintf("PF/{/Symbol t} ( 10^{%.0f}  W/m.K^{2}.s )",log10(Echel_PF))
 print "Plot Power Factor at ",ARG1," K ..."
-plot  sprintf("<awk '$2==%d' %s",int(ARG1),file2plot) u ($1-ARG2):($5*$5*$6/Echel_PF) w l ls 1 
+plot  sprintf("<awk '$2==%f' %s",Temp,file2plot) u ($1-ARG2):($5*$5*$6/Echel_PF) w l ls 1 
 print "          ...Done\n" 
 print "\nWriting Output file ---> ",sprintf("Trace_%sK.pdf",ARG1),"\n"
