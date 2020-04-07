@@ -17,4 +17,25 @@ To have a quick demonstration Run:
 or
 	sh Run_test
 ```
+
+# Doping File
+The intrans file and giving the concentration of doping (hole or electron) and then execute boltztrap code and normally you get the file trace_doping
+
+the intrance file will look like some things like that:
+```
+WIEN
+0 0 0 0.0
+0.7062793704 0.0005 0.4 42
+CALC
+5
+BOLTZ
+.15
+1500. 10.
+-1
+HISTO
+0 0 0 0     # ewperimental tau Values if you want to introduce them
+2           # number of carrier concentration
+1e18 -1e18  # 1st and 2nd carrier concentration /cm^3
+```
+
 For more informations or any questions, mail : hilal_balout@hotmail.com  
